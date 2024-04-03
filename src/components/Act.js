@@ -13,20 +13,18 @@ const List = ({onCheckChange}) => {
     const [editItemId, setEditItemId] = useState(null);
     const [editText, setEditText] = useState("");
 
-    const handleTextChange = (event) => {
-        setEditText(event.target.value);
-    }
+
 
     const handleEditTodo = (id) => {
         setEditItemId(id);
     }
 
-    const handleSaveTodo = (id) => {
+    const handleSaveTodo = (id,text) => {
 
-        dispatch(editTodo(id, { title: editText }));
+        dispatch(editTodo(id, text));
         setEditItemId(null);
         setEditText("");
-        console.log(editText)
+        console.log(text)
     }
     const handleAddNewTodo = () => {
 
@@ -53,9 +51,10 @@ const List = ({onCheckChange}) => {
                     <input type="checkbox" checked={item.checked} id={item.id} onChange={() => onCheckChange(item.id)} />
                     {editItemId === item.id ? (
                         <>
-                            <input type="text" value={editText} onChange={handleTextChange} />
+                            <input type="text"  onChange={(e)=> setEditText(e.target.value)} />
 
-                            <button className={'btnList'} onClick={() => handleSaveTodo(item.id)}>Save</button>
+                            <button className={'btnList'} onClick={() => handleSaveTodo(item.id,editText)}>Save</button>
+
                         </>
                     ) : (
                         <>
