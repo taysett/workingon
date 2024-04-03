@@ -1,0 +1,35 @@
+:root {
+    --main-bg-color: #f0f0f0;
+    --button-bg-color: #007bff;
+    --button-hover-bg-color: #0056b3;
+    --text-color: #ffffff;
+    --box-shadow-color: rgba(0,0,0,0.15);
+}
+
+.cartTask {
+    background: var(--main-bg-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px var(--box-shadow-color);
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: box-shadow 0.3s ease;
+}
+
+.cartTask:hover {
+    box-shadow: 0 6px 12px var(--box-shadow-color);
+}
+
+.btnList {
+    margin: 10px;
+    background-color: var(--button-bg-color);
+    color: var(--text-color);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btnList:hover {
+    background-color: var(--button-hover-bg-color);
+}
