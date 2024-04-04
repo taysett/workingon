@@ -15,16 +15,16 @@ const List = ({onCheckChange}) => {
 
 
 
-    const handleEditTodo = (id) => {
+    const handleEditTodo = (id,text) => {
         setEditItemId(id);
+        setEditText(text);
     }
 
-    const handleSaveTodo = (id,text) => {
+    const handleSaveTodo = (id) => {
 
-        dispatch(editTodo(id, text));
+        dispatch(editTodo(id, editText));
         setEditItemId(null);
         setEditText("");
-        console.log(text)
     }
     const handleAddNewTodo = () => {
 
@@ -53,13 +53,13 @@ const List = ({onCheckChange}) => {
                         <>
                             <input type="text"  onChange={(e)=> setEditText(e.target.value)} />
 
-                            <button className={'btnList'} onClick={() => handleSaveTodo(item.id,editText)}>Save</button>
+                            <button className={'btnList'} onClick={() => handleSaveTodo(item.id)}>Save</button>
 
                         </>
                     ) : (
                         <>
                             <label htmlFor={item.id}>{item.title}</label>
-                            <button className={'btnList'} onClick={() => handleEditTodo(item.id)}>Edit</button>
+                            <button className={'btnList'} onClick={() => handleEditTodo(item.id,item.title)}>Edit</button>
                         </>
                     )}
                     <button className={'btnList'} onClick={() => handleDeleteTodo(item.id)}>Delete</button>

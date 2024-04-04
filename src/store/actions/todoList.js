@@ -15,7 +15,8 @@ export const deleteTodo = id => {
 export const editTodo = (id, newContent) => {
     return {
         type: 'EDIT_TODO',
-        payload: {id,newContent}
+        id,
+        payload: { title: newContent, value:newContent.toLowerCase(),name:newContent.toLowerCase() }
     }
 }
 export const clearTodo = (id, newContent) => {
