@@ -25,3 +25,10 @@ export const clearTodo = (id, newContent) => {
         payload: {id, newContent}
     }
 }
+
+export const updateTodosOrder = (id,newOrder) => {
+    return{
+        type: 'UPDATE_TODO',
+        payload: { id, newOrder }
+    }
+}

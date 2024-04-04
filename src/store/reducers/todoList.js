@@ -36,6 +36,15 @@ const todoReducer = (state = initialState,action) => {
                     todo.id === action.payload.id ? { ...todo, title: '' } : todo
                 )
             }
+        case 'UPDATE_TODO':
+            return {
+                ...state,
+                todos: action.payload.todos
+            };
+
+
+
+
         default:
             return state;
     }

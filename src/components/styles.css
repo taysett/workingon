@@ -7,12 +7,13 @@
 }
 
 .cartTask {
-    background: var(--main-bg-color);
+   background: var(--main-bg-color);
     border-radius: 8px;
     box-shadow: 0 4px 6px var(--box-shadow-color);
     padding: 20px;
     margin-bottom: 20px;
     transition: box-shadow 0.3s ease;
+    cursor: grab;
 }
 
 .cartTask:hover {
