@@ -10,23 +10,21 @@ const List = ({ onCheckChange }) => {
     const todos = useSelector(state => state.todo.todos);
     const [editItemId, setEditItemId] = useState(null);
     const [editText, setEditText] = useState("");
-    const [newTodo, setNewTodo] = useState(null);
     const [currentItem, setCurrentItem] = useState(null);
 
-    useEffect(() => {
-        if (newTodoText.trim()) {
-            const order = todos.length + 1;
-            setNewTodo({
-                title: newTodoText,
-                id: Date.now() + Math.random(),
-                value: newTodoText.toLowerCase(),
-                name: newTodoText.toLowerCase(),
-                order: order
-            });
-        } else {
-            setNewTodo(null);
-        }
-    }, [newTodoText, todos]);
+    const handleAddNewTodo = () => {
+
+        if (!newTodoText.trim()) return;
+        const newTodo = {
+            title: newTodoText,
+            id: Date.now() + Math.random(),
+            value: newTodoText.toLowerCase(),
+            name: newTodoText.toLowerCase(),
+        };
+        dispatch(addTodo(newTodo));
+        setNewTodoText("")
+    }
+
 
     const handleEditTodo = (id) => {
         setEditItemId(id);
@@ -46,66 +44,22 @@ const List = ({ onCheckChange }) => {
         }
     }
 
-    const handleAddNewTodo = () => {
-        if (newTodo) {
-            dispatch(addTodo(newTodo));
-            setNewTodoText("");
-        }
-    }
+
 
     const handleDeleteTodo = (id) => {
         dispatch(deleteTodo(id));
     }
 
-    const handleDragStart = (e, item) => {
-        setCurrentItem(item);
-    }
 
-    const handleDragEnd = (e) => {
-        e.target.style.background = 'white';
-        setCurrentItem(null);
-    }
 
-    const handleDragOver = (e) => {
-        e.preventDefault();
-        e.target.style.background = 'lightgrey';
-    }
-
-    const handleDrop = (e, droppedItem) => {
-        e.preventDefault();
-        e.target.style.background = 'white';
-        const draggedItemId = currentItem.id;
-        const droppedItemId = droppedItem.id;
-        const updatedTodos = todos.map(todo => {
-            if (todo.id === draggedItemId) {
-                return { ...todo, order: droppedItem.order };
-            }
-            if (todo.id === droppedItemId) {
-                return { ...todo, order: currentItem.order };
-            }
-            return todo;
-        });
-
-        dispatch(updateTodosOrder(updatedTodos));
-    }
-
-    const sortItems = (a, b) => {
-        if (!a || !b) return 0;
-        return a.order > b.order ? 1 : -1;
-    }
 
     return (
         <>
             <input type="text" value={newTodoText} onChange={(e) => setNewTodoText(e.target.value)} />
             <button className={'btnList'} onClick={handleAddNewTodo}>+</button>
-            {todos.sort(sortItems).map((item) =>
+            {todos.map((item) =>
                 <div className={'cartTask'}
-                     key={item.id}
-                     draggable={true}
-                     onDragStart={(e) => handleDragStart(e, item)}
-                     onDragEnd={handleDragEnd}
-                     onDragOver={handleDragOver}
-                     onDrop={(e) => handleDrop(e, item)}
+
                 >
 
                     <input type="checkbox" checked={item.checked} id={item.id} onChange={() => onCheckChange(item.id)} />
@@ -138,8 +92,9 @@ const Login= (item) => {
     const handleClearTodo = (e) => {
         e.preventDefault()
         dispatch(clearTodo(item.id,{title: ''}))
-        setInputValue('')
-        localStorage.removeItem("message")
+        setInputValue(''); // Установка значения input
+        localStorage.removeItem("message");
+
     }
 const onChange = event => {
     const message = event.target.value
@@ -168,8 +123,6 @@ function Act()  {
     }, [checkedItems]);
 
 
-
-
     const onCheckChange = (id) => {
         const isCheckedItem = checkedItems[id]
         const updatedItems = {
@@ -179,7 +132,6 @@ function Act()  {
         setCheckedItems(updatedItems)
         localStorage.setItem('checkedItems',JSON.stringify(updatedItems))
     }
-
 
 
     return (
